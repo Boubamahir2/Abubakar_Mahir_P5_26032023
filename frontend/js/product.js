@@ -1,7 +1,6 @@
 // here For example, if the current URL is http://example.com/?id=123, then window.location.search would return ?id=123.
 const urlParams = new URLSearchParams(window.location.search); //déclare une variable valant l'url de la page actuelle
 const urlID = urlParams.get('id'); //récupère l'id contenu dans l'url de la page actuelle
-console.log(urlID);
 
 import { allProductsUrl, getElement, formatPrice } from '../utils/constants.js';
 
@@ -28,6 +27,8 @@ window.addEventListener('DOMContentLoaded', async function () {
       product.colors.forEach(color => {
         colorOptions.innerHTML += `<option value="${color}">${color}</option>`;
       });
+
+      
     } else {
       console.log(response.status, response.statusText);
       centerDOM.innerHTML = `
