@@ -3,6 +3,7 @@ const urlParams = new URLSearchParams(window.location.search); //déclare une va
 const urlID = urlParams.get('id'); //récupère l'id contenu dans l'url de la page actuelle
 
 import { allProductsUrl, getElement, formatPrice } from '../utils/constants.js';
+import { addToCart } from '../js/cart/setUpCarte.js';
 
 
 const productImg = document.querySelector(".item__img");
@@ -18,25 +19,38 @@ window.addEventListener('DOMContentLoaded', async function () {
     const response = await fetch(`${allProductsUrl}/${urlID}`);
     // The if statement checks whether the status code of the response is within the 200 to 299 range, which indicates a successful response.
     if (response.status >= 200 && response.status <= 299) {
-      const product = await response.json();
-      console.log(product, 'single')
-      productImg.innerHTML = `<img src="${product.imageUrl}" alt="Photographie d'un canapé">`;
-      productName.textContent = product.name;
-      productPrice.textContent= product.price;
-      productDescription.textContent = product.description;
-      product.colors.forEach(color => {
+      const {_id,imageUrl,name,price,description,colors} = await response.json();
+      productImg.innerHTML = `<img src="${imageUrl}" alt="Photographie d'un canapé">`;
+      productName.textContent = name;
+      productPrice.textContent= price;
+      productDescription.textContent = description;
+      colors.forEach(color => {
         colorOptions.innerHTML += `<option value="${color}">${color}</option>`;
       });
 
       // j'ai crée une fonction déclenchée au clic sur le bouton ADDTOCART
 		const addToCartBtn = document.getElementById("addToCart");
 
-    // /jai crée une fonction d'ajout au panier avec argument product
+    // une fonction d'ajout au panier avec argument product
     addToCartBtn.addEventListener('click', function (e) {
-    const parent = e.target.parentElement;
-    if (parent.classList.contains('product-cart-btn')) {
-      addToCart(parent.dataset.id);
-    }
+      	let cartValue = {
+				//initialisation de la variable basketValue
+				selectedProductID: _id,
+				SelectedProductName: name,
+				SelectedProductColor: colorOptions.value,
+				quantity: productQuantity.value
+			};
+
+      	// une fonction de récupération du panier
+        	function getBasket() {
+				let basketValue = JSON.parse(localStorage.getItem("kanapLs"));
+				if (basketValue === null) {
+					return [];				//si le LocalStorage est vide, on crée un tableau vide
+				} else {
+					return basketValue
+				}
+			}
+
   });
 
     } else {

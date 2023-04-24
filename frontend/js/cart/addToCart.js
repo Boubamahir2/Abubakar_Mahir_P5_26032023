@@ -1,6 +1,7 @@
 //////////// fonction d'affichage du DOM ////////////////////
-import { getElement,messagePanierVide } from '../../utils/constants.js';
-const cartItemsDOM = getElement('#cart__items');
+import { getElement,messagePanierVide,getStorageItem } from '../../utils/constants.js';
+let cart = getStorageItem('cart');
+const cartItemsDOM = document.getElementById('#cart__items');
 const addToCartDOM =  ({_id:id,name,price,imageUrl:image,color,amount})=>{
 const article = document.createElement('article');
  article.classList.add('cart__item');
@@ -20,7 +21,7 @@ const article = document.createElement('article');
                   <div class="cart__item__content__settings">
                     <div class="cart__item__content__settings__quantity">
                       <p>Qté : </p>
-                      <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${amount}">
+                      <input type="number" data-id="${id} class="itemQuantity" name="itemQuantity" min="1" max="100" value="${amount}">
                     </div>
                     <div class="cart__item__content__settings__delete">
                       <p class="deleteItem">Supprimer</p>
@@ -29,8 +30,11 @@ const article = document.createElement('article');
                 </div>
    
    `;
-
+if (cart !== null && cart.length !== 0) {
    cartItemsDOM.appendChild(article);
+}else{
+ return cartItemsDOM.innerHTML = messagePanierVide();
+}
 }
 
 export default addToCartDOM;
