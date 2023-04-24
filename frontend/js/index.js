@@ -11,8 +11,8 @@ const init = async () => {
   if (products) {
     // add products to the store
     setupStore(products);
+    display(store, getElement('#items') )
   }
-  display(store, getElement('#items') )
 };
 
 // The code is wrapped in an event listener that waits for the DOMContentLoaded event to fire before calling the init function. This ensures that the page is fully loaded before any code that depends on the DOM is executed.

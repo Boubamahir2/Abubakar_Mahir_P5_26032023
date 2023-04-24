@@ -28,7 +28,17 @@ window.addEventListener('DOMContentLoaded', async function () {
         colorOptions.innerHTML += `<option value="${color}">${color}</option>`;
       });
 
-      
+      // j'ai crée une fonction déclenchée au clic sur le bouton ADDTOCART
+		const addToCartBtn = document.getElementById("addToCart");
+
+    // /jai crée une fonction d'ajout au panier avec argument product
+    addToCartBtn.addEventListener('click', function (e) {
+    const parent = e.target.parentElement;
+    if (parent.classList.contains('product-cart-btn')) {
+      addToCart(parent.dataset.id);
+    }
+  });
+
     } else {
       console.log(response.status, response.statusText);
       centerDOM.innerHTML = `
