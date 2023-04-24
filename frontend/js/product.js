@@ -23,11 +23,22 @@ window.addEventListener('DOMContentLoaded', async function () {
       console.log(product, 'single')
       productImg.innerHTML = `<img src="${product.imageUrl}" alt="Photographie d'un canapé">`;
       productName.textContent = product.name;
-      productPrice.innerHTML = product.price;
+      productPrice.textContent= product.price;
       productDescription.textContent = product.description;
+      product.colors.forEach(color => {
+        colorOptions.innerHTML += `<option value="${color}">${color}</option>`;
+      });
+    } else {
+      console.log(response.status, response.statusText);
+      centerDOM.innerHTML = `
+    <div>
+    <h3 class="error">sorry, something went wrong</h3>
+    <a href="index.html" class="btn">back home</a>
+    </div> 
+     `;
     }
+
   } catch (error) {
     console.log(error);
   }
-
 });
