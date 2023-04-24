@@ -10,6 +10,13 @@ const formatPrice = (price) => {
   return formattedPrice
 }
 
+// The code defines a function called getElement that takes in a single argument called selection. The function uses the document.querySelector method to select an element from the DOM based on the selection parameter. If an element is found, the function returns it. However, if no element is found, the function throws a new Error object with a message that indicates the selector that was passed in did not select any elements.
+const getElement = (selection) => {
+  const element = document.querySelector(selection)
+  if (element) return element
+  throw new Error(`Please check "${selection}" selector, no such element exist`)
+}
+
 // This function takes in an item key and gets the corresponding value from localStorage. If the value exists, it is parsed as a JSON object and returned. If it does not exist, an empty array is returned.
 const getStorageItem = (item) => {
   let storageItem = localStorage.getItem(item)
@@ -28,6 +35,7 @@ const setStorageItem = (name, item) => {
 
 export {
   allProductsUrl,
+  getElement,
   formatPrice,
   getStorageItem,
   setStorageItem,
