@@ -1,14 +1,15 @@
-import { getElement } from '../utils/constants.js';
+import {
+  getStorageItem,
+  setStorageItem,
+  formatPrice,
+  getElement,
+} from '../../utils/constants.js';
+
+import addToCartDOM from './addToCartDOM.js';
+
+const cartItemCountDOM = getElement('#totalQuantity');
 const cartItemsDOM = getElement('#cart__items');
-const addToCartDOM =  ({_id,name,price,description,altTxt,imageUrl})=>{
-const article = document.createElement('article');
- article.classList.add('cart__item');
-  article.setAttribute('data-id', id);
-   article.innerHTML = `
-   
-   `;
+const cartTotalDOM = getElement('#totalPrice');
 
-   cartItemsDOM.appendChild(article);
-}
-
-export default addToCartDOM;
+//if faut daboarb recu recupere nos panier de la local storage
+let cart = getStorageItem('cart');

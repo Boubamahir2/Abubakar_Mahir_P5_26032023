@@ -33,10 +33,23 @@ const setStorageItem = (name, item) => {
   localStorage.setItem(name, JSON.stringify(item))
 }
 
+const messagePanierVide = () =>{
+	const cartTitle = document.querySelector(
+		"#limitedWidthBlock div.cartAndFormContainer > h1"
+	); //emplacement du message
+	const emptyCartMessage = "Oups ! Votre panier est vide !";
+	cartTitle.textContent = emptyCartMessage;
+	cartTitle.style.fontSize = "40px";
+
+	document.querySelector(".cart__order").style.display = "none"; //masque le formulaire si panier vide
+	document.querySelector(".cart__price").style.display = "none"; // masque le prix total si panier vide
+};
+
 export {
   allProductsUrl,
   getElement,
   formatPrice,
   getStorageItem,
   setStorageItem,
+  messagePanierVide
 }
