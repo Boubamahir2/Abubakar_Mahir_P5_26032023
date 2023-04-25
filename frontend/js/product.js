@@ -11,8 +11,10 @@ const productDescription = getElement("#description");	// d'insertion des variab
 const colorOptions = getElement("#colors");
 const productQuantity = getElement("#quantity");
 
+
 // show product when page loads
 window.addEventListener('DOMContentLoaded', async function () {
+
   try {
     const response = await fetch(`${allProductsUrl}/${urlID}`);
     // The if statement checks whether the status code of the response is within the 200 to 299 range, which indicates a successful response.
@@ -23,6 +25,7 @@ window.addEventListener('DOMContentLoaded', async function () {
       productName.textContent = name;
       productPrice.textContent= price;
       productDescription.textContent = description;
+      productQuantity.setAttribute('data-id', _id);
       colors.forEach(color => {
         colorOptions.innerHTML += `<option value="${color}">${color}</option>`;
       });
@@ -34,21 +37,21 @@ window.addEventListener('DOMContentLoaded', async function () {
     addToCartBtn.addEventListener('click', function (e) {
       let cartValue = {
 				//initialisation de la variable cartValue
-				selectedProductID: _id,
-				selectedProductImage: imageUrl,
-				selectedProductName: name,
-				selectedProductColor: colorOptions.value,
+				id: _id,
+				image: imageUrl,
+				name,
+				color: colorOptions.value,
 				quantity: productQuantity.value
 			};
 
-			//je crée une fonction d'ajout au panier avec argument product
+			//une fonction d'ajout au panier avec argument product
 			function addToCart(product) {
         let cartValue = getStorageItem('cartValue');
 				let availableItems = cartValue.find(
 					/// on définit availableItems comme l'article à trouver
 					(item) =>
-						item.selectedProductID === product.selectedProductID &&
-						item.selectedProductColor === product.SelectedProductColor	
+						item.id === product.id &&
+						item.color === product.color	
 				); //si les produits du panier et les produits du LS n'ont pas même ID et même couleur
 					// il retournera undefined  
 				if (
@@ -57,7 +60,7 @@ window.addEventListener('DOMContentLoaded', async function () {
 					productQuantity.value > 0 &&
 					productQuantity.value <= 100
 				) {
-					product.quantity = productQuantity.value; //la quantité saisie est définie 
+					product.quantity = parseInt(productQuantity.value); //la quantité saisie est définie 
 					cartValue.push(product);					 //dans le Ls
 				} else {
 					let newQuantity =

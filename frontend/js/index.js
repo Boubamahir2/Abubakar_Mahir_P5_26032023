@@ -1,5 +1,5 @@
 // global imports
-import fetchProducts from '../utils/fetchProducts.js';
+import {fetchProducts} from '../utils/fetchProducts.js';
 import { setupStore, store } from './store.js';
 import display from './displayProducts.js'
 import { getElement } from '../utils/constants.js';
