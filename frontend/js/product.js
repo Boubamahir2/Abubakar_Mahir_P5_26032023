@@ -2,9 +2,7 @@
 const urlParams = new URLSearchParams(window.location.search); //déclare une variable valant l'url de la page actuelle
 const urlID = urlParams.get('id'); //récupère l'id contenu dans l'url de la page actuelle
 
-import { allProductsUrl, getElement, formatPrice } from '../utils/constants.js';
-import { addToCart } from '../js/cart/setUpCarte.js';
-
+import { allProductsUrl, getElement, setStorageItem,getStorageItem } from '../utils/constants.js';
 
 const productImg = document.querySelector(".item__img");
 const productName = document.querySelector("#title");
@@ -19,6 +17,7 @@ window.addEventListener('DOMContentLoaded', async function () {
     const response = await fetch(`${allProductsUrl}/${urlID}`);
     // The if statement checks whether the status code of the response is within the 200 to 299 range, which indicates a successful response.
     if (response.status >= 200 && response.status <= 299) {
+      productQuantity.value = 1;
       const {_id,imageUrl,name,price,description,colors} = await response.json();
       productImg.innerHTML = `<img src="${imageUrl}" alt="Photographie d'un canapé">`;
       productName.textContent = name;
@@ -33,22 +32,62 @@ window.addEventListener('DOMContentLoaded', async function () {
 
     // une fonction d'ajout au panier avec argument product
     addToCartBtn.addEventListener('click', function (e) {
-      	let cartValue = {
-				//initialisation de la variable basketValue
+      let cartValue = {
+				//initialisation de la variable cartValue
 				selectedProductID: _id,
-				SelectedProductName: name,
-				SelectedProductColor: colorOptions.value,
+				selectedProductImage: imageUrl,
+				selectedProductName: name,
+				selectedProductColor: colorOptions.value,
 				quantity: productQuantity.value
 			};
 
-      	// une fonction de récupération du panier
-        	function getBasket() {
-				let basketValue = JSON.parse(localStorage.getItem("kanapLs"));
-				if (basketValue === null) {
-					return [];				//si le LocalStorage est vide, on crée un tableau vide
+			//je crée une fonction d'ajout au panier avec argument product
+			function addToCart(product) {
+        let cartValue = getStorageItem('cartValue');
+				let availableItems = cartValue.find(
+					/// on définit availableItems comme l'article à trouver
+					(item) =>
+						item.selectedProductID === product.selectedProductID &&
+						item.selectedProductColor === product.SelectedProductColor	
+				); //si les produits du panier et les produits du LS n'ont pas même ID et même couleur
+					// il retournera undefined  
+				if (
+					availableItems == undefined &&
+					colorOptions.value != "" &&			//si les consitions sont OK
+					productQuantity.value > 0 &&
+					productQuantity.value <= 100
+				) {
+					product.quantity = productQuantity.value; //la quantité saisie est définie 
+					cartValue.push(product);					 //dans le Ls
 				} else {
-					return basketValue
+					let newQuantity =
+						parseInt(availableItems.quantity) +
+						parseInt(productQuantity.value); //CUMUL Quantité si présent ID et color
+					availableItems.quantity = newQuantity;
 				}
+				saveCart(cartValue);
+				alert(
+					`Le canapé ${name} ${colorOptions.value} a été ajouté en ${productQuantity.value} exemplaires à votre panier !`
+				);
+			}
+			//une fonction de sauvegarde du panier
+			function saveCart(cartValue) {
+        setStorageItem('cartValue', cartValue);
+			}
+
+			// Si le choix de couleur est vide
+			if (colorOptions.value === "") {
+				alert("Veuillez choisir une couleur, SVP");
+			}
+			// Si la quantité choisie est nulle OU si elle dépasse 100
+			else if (
+				productQuantity.value <= 0 ||
+				productQuantity.value > 100
+			) {
+				alert("Veuillez sélectionner une quantité correcte, SVP");
+			} else {
+				//Si tout est OK, on envoie le panier au LS
+				addToCart(cartValue);
 			}
 
   });

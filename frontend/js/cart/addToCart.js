@@ -1,40 +1,33 @@
 //////////// fonction d'affichage du DOM ////////////////////
 import { getElement,messagePanierVide,getStorageItem } from '../../utils/constants.js';
-let cart = getStorageItem('cart');
-const cartItemsDOM = document.getElementById('#cart__items');
-const addToCartDOM =  ({_id:id,name,price,imageUrl:image,color,amount})=>{
-const article = document.createElement('article');
- article.classList.add('cart__item');
-  article.setAttribute('data-id', id);
-  article.setAttribute('data-color', color);
-   // injection dynamique des produits dans le DOM
-   article.innerHTML = `
-   <div class="cart__item__img">
-                  <img src= "${image}" alt="Photographie d'un canapé">
-                </div>
-                <div class="cart__item__content">
-                  <div class="cart__item__content__description">
-                    <h2>${name}</h2>
-                    <p>${color}</p>
-                    <p>${price} €</p>
-                  </div>
-                  <div class="cart__item__content__settings">
-                    <div class="cart__item__content__settings__quantity">
-                      <p>Qté : </p>
-                      <input type="number" data-id="${id} class="itemQuantity" name="itemQuantity" min="1" max="100" value="${amount}">
-                    </div>
-                    <div class="cart__item__content__settings__delete">
-                      <p class="deleteItem">Supprimer</p>
-                    </div>
-                  </div>
-                </div>
-   
-   `;
-if (cart !== null && cart.length !== 0) {
-   cartItemsDOM.appendChild(article);
-}else{
- return cartItemsDOM.innerHTML = messagePanierVide();
-}
+
+function addToCart(product,name) {
+  let cartValue = getStorageItem('cartValue');
+  let availableItems = cartValue.find(
+    /// on définit availableItems comme l'article à trouver
+    (item) =>
+      item.selectedProductID === product.selectedProductID &&
+      item.SelectedProductColor === product.SelectedProductColor	
+  ); //si les produits du panier et les produits du LS n'ont pas même ID et même couleur
+    // il retournera undefined  
+  if (
+    availableItems == undefined &&
+    colorOptions.value != "" &&			//si les consitions sont OK
+    productQuantity.value > 0 &&
+    productQuantity.value <= 100
+  ) {
+    product.quantity = productQuantity.value; //la quantité saisie est définie 
+    cartValue.push(product);					 //dans le Ls
+  } else {
+    let newQuantity =
+      parseInt(availableItems.quantity) +
+      parseInt(productQuantity.value); //CUMUL Quantité si présent ID et color
+    availableItems.quantity = newQuantity;
+  }
+  saveCart(cartValue);
+  alert(
+    `Le canapé ${name} ${colorOptions.value} a été ajouté en ${productQuantity.value} exemplaires à votre panier !`
+  );
 }
 
-export default addToCartDOM;
+export default addToCart;
