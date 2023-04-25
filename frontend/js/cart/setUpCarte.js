@@ -20,26 +20,44 @@ const cartTotalDOM = document.getElementById('#totalPrice');
 let cartValue = getStorageItem('cartValue');
 // console.log(cartValue,'cartValue')
 
+// recuperer tout les donnes paraport au donnée dans localhost
 const fetchProduct = async () => {
-  let CartArray = []; // tableau vide qui va contenir les objets créés en suite
+let cartArray = []; // tableau vide qui va contenir les objets créés en suite
 
 if (cartValue !== null) {
   for (let x = 0; x < cartValue.length; x++) {
     console.log((cartValue[x].id))
-    const product =  await fetchSingleProduct(cartValue[x].id);
-    console.log(product);
+    await fetch("http://localhost:3000/api/products/" + cartValue[x].id)
+    .then((res) => res.json())
+		.then((item) => {
+			const article = {
+				//création d'un objet qui va regrouper les infos nécessaires à la suite
+				_id: item._id,
+				name: item.name,
+				price: item.price,
+				color: cartValue[x].color,
+				quantity: cartValue[x].quantity,
+				alt: item.altTxt,
+				img: item.imageUrl,
+			};
+			cartArray.push(article); //ajout de l'objet article au tableau 
+		}).catch((err) => console.log(err));
   }
 }
+console.log('CartArray' , cartArray)
+return cartArray;
 }
 
 
-/////////////// déclaration de la fonction du fetch pour acceder aux infos Hors Scope/////////
-
+/////////////// une fonction du fetch pour acceder aux infos Hors Scope/////////
+const displayCart = ()=>{
+  const product = fetchProduct();
+}
 
 // parent function for calling all the methods 
 const init = () => {
    // add all cart items to the dom
-fetchProduct();
+displayCart();         ////// affichage du DOM ( avec rappel du fetchApi //////
 }
 // intialise all the functions
 init();

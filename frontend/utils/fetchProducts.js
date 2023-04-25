@@ -9,8 +9,8 @@ const fetchProducts = async () => {
   }
   return response;
 };
-const fetchSingleProduct = async ({id}) => {
-  const response = await fetch(`${allProductsUrl}/${id}`).catch((err) => console.log(err));  // retour d'un code d'erreur dans la console en cas de problème lors du fetch
+const fetchSingleProduct = async (id) => {
+  const response = await fetch(`http://localhost:3000/api/products/ ${id}`).catch((err) => console.log(err));  // retour d'un code d'erreur dans la console en cas de problème lors du fetch
   if (response) {
     return response.json(); //conversion des données reçues en format JSON exploitable par js
   }
