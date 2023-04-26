@@ -45,11 +45,43 @@ const messageCartVide = () =>{
 	document.querySelector(".cart__price").style.display = "none"; // masque le prix total si panier vide
 };
 
+let cart = getStorageItem('cart');
+function removeItem(id) {
+  cart = cart.filter((cartItem) => cartItem.id !== id);
+}
+
+function increaseAmount(id) {
+  let newAmount;
+  cart = cart.map((cartItem) => {
+    if (cartItem.id === id) {
+      newAmount = cartItem.amount + 1;
+      cartItem = { ...cartItem, amount: newAmount };
+    }
+    return cartItem;
+  });
+  return newAmount;
+}
+
+function decreaseAmount(id) {
+  let newAmount;
+  cart = cart.map((cartItem) => {
+    if (cartItem.id === id) {
+      newAmount = cartItem.amount - 1;
+      cartItem = { ...cartItem, amount: newAmount };
+    }
+    return cartItem;
+  });
+  return newAmount;
+}
+
 export {
   allProductsUrl,
+  removeItem,
   getElement,
+  increaseAmount,
   formatPrice,
   getStorageItem,
   setStorageItem,
+  decreaseAmount,
   messageCartVide
 }
