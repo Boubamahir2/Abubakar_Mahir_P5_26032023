@@ -39,6 +39,7 @@ window.addEventListener('DOMContentLoaded', async function () {
 				//initialisation de la variable cartValue
 				id: _id,
 				image: imageUrl,
+        price:price,
 				name,
 				color: colorOptions.value,
 				quantity: productQuantity.value

@@ -9,9 +9,9 @@ import {
 import {messageCartVide} from '../../utils/constants.js'
 import addToCartDOM from './addToCart.js';
 
-const cartItemCountDOM = document.getElementById("#totalQuantity");
+const cartItemCountDOM = getElement("#totalQuantity");
 
-const cartTotalDOM = document.getElementById('#totalPrice');
+const cartTotalDOM = getElement('#totalPrice');
 // console.log(cartItemCountDOM,cartItemsDOM,cartTotalDOM);
 
 
@@ -48,7 +48,7 @@ return cartArray;
 }
 
 
-/////////////// une fonction du fetch pour acceder aux infos Hors Scope/////////
+// une fonction poour afichage des continus de panier /////////
 const displayCart = async ()=>{
   const products = await fetchProduct();
   console.log(products);
@@ -63,10 +63,37 @@ const displayCart = async ()=>{
 	}
 }
 
+////////Fonction addition quantités  Total dans le panier////////////////
+function displayCartItemCount() {
+  const amount = cartValue.reduce((total, cartItem) => {
+    return (total += cartItem.quantity);
+  }, 0);
+  cartItemCountDOM.textContent = amount;
+  console.log(amount, 'amount')
+}
+
+////////Fonction addition quantités et Prix pour Total////////////////
+function displayCartTotal() {
+  let total = cartValue.reduce((total, cartItem) => {
+    
+    console.log(cartItem, 'cartItem')
+    return (total += cartItem.price * cartItem.quantity);
+  }, 0);
+  cartTotalDOM.textContent = total;
+  console.log(total, 'total')
+  
+}
+
+
 // parent function for calling all the methods 
 const init = () => {
    // add all cart items to the dom
 displayCart();         ////// affichage du DOM ( avec rappel du fetchApi //////
+
+// display amount of cart items
+displayCartItemCount()
+ // display total
+  displayCartTotal();
 }
 
 // intialise all the functions
