@@ -5,8 +5,8 @@ const cartItemsDOM = document.querySelector("#cart__items");
 function addToCartDOM(product) {
 const article = document.createElement('article');
   article.classList.add('cart__item');
-  article.setAttribute('data-id', product._id);
-  article.innerHTML += `<article class="cart__item" data-id="${product._id}" data-color="${product.color}">
+  article.setAttribute('data-id', product.id);
+  article.innerHTML += `<article class="cart__item" data-id="${product.id}" data-color="${product.color}">
                 <div class="cart__item__img">
                   <img src= "${product.img}" alt="Photographie d'un canapé">
                 </div>

@@ -31,7 +31,7 @@ if (cartValue !== null) {
 		.then((item) => {
 			const article = {
 				//création d'un objet qui va regrouper les infos nécessaires à la suite
-				_id: item._id,
+				id: item._id,
 				name: item.name,
 				price: item.price,
 				color: cartValue[x].color,
@@ -59,7 +59,7 @@ const displayCart = async ()=>{
 
 		});
 	} else {
-		return messageCartVide ; //si Ls vide, affichage du message Panier Vide
+		return messageCartVide() ; //si Ls vide, affichage du message Panier Vide
 	}
 }
 
