@@ -35,7 +35,7 @@ window.addEventListener('DOMContentLoaded', async function () {
 
     // une fonction d'ajout au panier avec argument product
     addToCartBtn.addEventListener('click', function (e) {
-      let cartValue = {
+      let cart = {
 				//initialisation de la variable cartValue
 				id: _id,
 				image: imageUrl,
@@ -90,7 +90,7 @@ window.addEventListener('DOMContentLoaded', async function () {
 				alert("Veuillez sélectionner une quantité correcte, SVP");
 			} else {
 				//Si tout est OK, on envoie le panier au LS
-				addToCart(cartValue);
+				addToCart(cart);
 			}
 
   });

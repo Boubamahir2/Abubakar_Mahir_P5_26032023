@@ -33,7 +33,7 @@ const setStorageItem = (name, item) => {
   localStorage.setItem(name, JSON.stringify(item))
 }
 
-const messagePanierVide = () =>{
+const messageCartVide = () =>{
 	const cartTitle = document.querySelector(
 		"#limitedWidthBlock div.cartAndFormContainer > h1"
 	); //emplacement du message
@@ -51,5 +51,5 @@ export {
   formatPrice,
   getStorageItem,
   setStorageItem,
-  messagePanierVide
+  messageCartVide
 }

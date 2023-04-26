@@ -5,13 +5,12 @@ import {
   getElement,
 } from '../../utils/constants.js';
 
-import {fetchSingleProduct} from '../../utils/fetchProducts.js';
-
+// meassage cart vide
+import {messageCartVide} from '../../utils/constants.js'
 import addToCartDOM from './addToCart.js';
-import { findProduct } from '../store.js';
 
 const cartItemCountDOM = document.getElementById("#totalQuantity");
-const cartItemsDOM = document.getElementById('#cart__items');
+
 const cartTotalDOM = document.getElementById('#totalPrice');
 // console.log(cartItemCountDOM,cartItemsDOM,cartTotalDOM);
 
@@ -50,8 +49,18 @@ return cartArray;
 
 
 /////////////// une fonction du fetch pour acceder aux infos Hors Scope/////////
-const displayCart = ()=>{
-  const product = fetchProduct();
+const displayCart = async ()=>{
+  const products = await fetchProduct();
+  console.log(products);
+
+  if (cartValue !== null && cartValue.length !== 0) {
+		products.forEach((product) => { // injection dynamique des produits dans le DOM
+		addToCartDOM(product)
+
+		});
+	} else {
+		return messageCartVide ; //si Ls vide, affichage du message Panier Vide
+	}
 }
 
 // parent function for calling all the methods 
@@ -59,5 +68,6 @@ const init = () => {
    // add all cart items to the dom
 displayCart();         ////// affichage du DOM ( avec rappel du fetchApi //////
 }
+
 // intialise all the functions
 init();

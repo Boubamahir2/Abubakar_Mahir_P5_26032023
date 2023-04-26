@@ -1,33 +1,33 @@
 // //////////// fonction d'affichage du DOM ////////////////////
 // import { getElement,messagePanierVide,getStorageItem } from '../../utils/constants.js';
+const cartItemsDOM = document.querySelector("#cart__items");
 
-function addToCart(product,name) {
-//   let cartValue = getStorageItem('cartValue');
-//   let availableItems = cartValue.find(
-//     /// on définit availableItems comme l'article à trouver
-//     (item) =>
-//       item.selectedProductID === product.selectedProductID &&
-//       item.SelectedProductColor === product.SelectedProductColor	
-//   ); //si les produits du panier et les produits du LS n'ont pas même ID et même couleur
-//     // il retournera undefined  
-//   if (
-//     availableItems == undefined &&
-//     colorOptions.value != "" &&			//si les consitions sont OK
-//     productQuantity.value > 0 &&
-//     productQuantity.value <= 100
-//   ) {
-//     product.quantity = productQuantity.value; //la quantité saisie est définie 
-//     cartValue.push(product);					 //dans le Ls
-//   } else {
-//     let newQuantity =
-//       parseInt(availableItems.quantity) +
-//       parseInt(productQuantity.value); //CUMUL Quantité si présent ID et color
-//     availableItems.quantity = newQuantity;
-//   }
-//   saveCart(cartValue);
-//   alert(
-//     `Le canapé ${name} ${colorOptions.value} a été ajouté en ${productQuantity.value} exemplaires à votre panier !`
-//   );
+function addToCartDOM(product) {
+const article = document.createElement('article');
+  article.classList.add('cart__item');
+  article.setAttribute('data-id', product._id);
+  article.innerHTML += `<article class="cart__item" data-id="${product._id}" data-color="${product.color}">
+                <div class="cart__item__img">
+                  <img src= "${product.img}" alt="Photographie d'un canapé">
+                </div>
+                <div class="cart__item__content">
+                  <div class="cart__item__content__description">
+                    <h2>${product.name}</h2>
+                    <p>${product.color}</p>
+                    <p>${product.price} €</p>
+                  </div>
+                  <div class="cart__item__content__settings">
+                    <div class="cart__item__content__settings__quantity">
+                      <p>Qté : </p>
+                      <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${product.quantity}">
+                    </div>
+                    <div class="cart__item__content__settings__delete">
+                      <p class="deleteItem">Supprimer</p>
+                    </div>
+                  </div>
+                </div>
+              </article>`;
+              cartItemsDOM.appendChild(article);
 }
 
-export default addToCart;
+export default addToCartDOM;
