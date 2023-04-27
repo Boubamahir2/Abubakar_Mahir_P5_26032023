@@ -33,6 +33,10 @@ const setStorageItem = (name, item) => {
   localStorage.setItem(name, JSON.stringify(item))
 }
 
+ const removeStorageItem= (item) => {
+  localStorage.removeItem("item");
+}
+
 const messageCartVide = () =>{
 	const cartTitle = document.querySelector(
 		"#limitedWidthBlock div.cartAndFormContainer > h1"
@@ -45,7 +49,7 @@ const messageCartVide = () =>{
 	document.querySelector(".cart__price").style.display = "none"; // masque le prix total si panier vide
 };
 
-let cart = getStorageItem('cart');
+let cart = getStorageItem('cartValue');
 function removeItem(id) {
   cart = cart.filter((cartItem) => cartItem.id !== id);
 }
@@ -83,5 +87,6 @@ export {
   getStorageItem,
   setStorageItem,
   decreaseAmount,
-  messageCartVide
+  messageCartVide,
+  removeStorageItem
 }

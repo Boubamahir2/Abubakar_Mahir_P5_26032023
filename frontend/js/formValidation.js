@@ -1,6 +1,6 @@
 // dom selsectors
 import {setError,setSuccess} from '../utils/messages.js'
-import {getStorageItem} from '../utils/constants.js'
+import {getStorageItem,removeStorageItem} from '../utils/constants.js'
 let cartValue = getStorageItem('cartValue');
 // error messages elements
 const firstNameErrorMsg = document.querySelector("#firstNameErrorMsg");
@@ -149,21 +149,22 @@ orderBtn.addEventListener("click", function(e) {
 		let orderObject = { contact, products };
 
     // récupération de l'ID de commande après fetch POST vers API   //
-    fetch("http://localhost:3000/api/products/order", {
+   const response = fetch("http://localhost:3000/api/products/order", {
 			method: "POST",
 			body: JSON.stringify(orderObject),
 			headers: {
 				"Content-type": "application/json",
 			},
 		})
-    .then( (res)=> res.json())
-    .then((data)=>{
-      // console.log(data);
-  
-      //renvoi vers la page de confirmation avec l'ID de commande //
+
+    response.then(async function (response) {
+			// réponse de l'API //
+			const data = await response.json();
+			//renvoi vers la page de confirmation avec l'ID de commande //
 			window.location.href = `confirmation.html?orderId=${data.orderId}`;
+      // console.log(data);
+      
     })
-    .catch(err=>{console.log(err)})
   }
 }
 
