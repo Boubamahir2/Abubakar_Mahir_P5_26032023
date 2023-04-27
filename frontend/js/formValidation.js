@@ -145,7 +145,25 @@ orderBtn.addEventListener("click", function(e) {
       products.push(product.id)
     }
 
-    
+    	// un 'objet contenant les infos de la commande //
+		let orderObject = { contact, products };
+
+    // récupération de l'ID de commande après fetch POST vers API   //
+    fetch("http://localhost:3000/api/products/order", {
+			method: "POST",
+			body: JSON.stringify(orderObject),
+			headers: {
+				"Content-type": "application/json",
+			},
+		})
+    .then( (res)=> res.json())
+    .then((data)=>{
+      // console.log(data);
+  
+      //renvoi vers la page de confirmation avec l'ID de commande //
+			window.location.href = `confirmation.html?orderId=${data.orderId}`;
+    })
+    .catch(err=>{console.log(err)})
   }
 }
 
