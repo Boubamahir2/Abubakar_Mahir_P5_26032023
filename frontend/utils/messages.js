@@ -30,7 +30,6 @@ export const formError = (element, errorMessage) => {
   }
 };
 
-
 export const formSuccess = (element) => {
   const err = element.querySelector(".submitError");
   if (err) {
