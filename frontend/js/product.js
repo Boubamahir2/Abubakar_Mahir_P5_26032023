@@ -2,7 +2,8 @@
 const urlParams = new URLSearchParams(window.location.search); //déclare une variable valant l'url de la page actuelle
 const urlID = urlParams.get('id'); //récupère l'id contenu dans l'url de la page actuelle
 
-import { allProductsUrl, getElement, setStorageItem,getStorageItem } from '../utils/constants.js';
+import { allProductsUrl,displayCartItemCount, getElement, setStorageItem,getStorageItem } from '../utils/constants.js';
+
 
 const productImg = document.querySelector(".item__img");
 const productName = document.querySelector("#title");
@@ -11,6 +12,7 @@ const productDescription = getElement("#description");	// d'insertion des variab
 const colorOptions = getElement("#colors");
 const productQuantity = getElement("#quantity");
 
+displayCartItemCount()
 
 // show product when page loads
 window.addEventListener('DOMContentLoaded', async function () {

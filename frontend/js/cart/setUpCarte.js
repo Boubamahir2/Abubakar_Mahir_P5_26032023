@@ -66,7 +66,7 @@ const displayCart = async ()=>{
 }
 
 ////////Fonction addition quantités  Total dans le panier////////////////
-function displayCartItemCount() {
+export function displayCartItemCount() {
   const amount = cartValue.reduce((total, cartItem) => {
     return (total += cartItem.quantity);
   }, 0);
@@ -79,7 +79,7 @@ function displayCartItemCount() {
 }
 
 
-function setupCartFunctionality() {
+ function setupCartFunctionality() {
   cartItemsDOM.addEventListener('click', function (e) {
     const element = e.target;
     const parent = e.target.parentElement;
@@ -139,3 +139,4 @@ displayCartItemCount()
 
 // intialise all the functions
 init();
+

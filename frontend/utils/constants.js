@@ -78,6 +78,15 @@ function decreaseAmount(id) {
   return newAmount;
 }
 
+function displayCartItemCount() {
+  const amount = cart.reduce((total, cartItem) => {
+    return (total += cartItem.quantity);
+  }, 0);
+  if(amount){
+     setStorageItem('amount', amount);
+  }
+}
+
 export {
   allProductsUrl,
   removeItem,
@@ -88,5 +97,6 @@ export {
   setStorageItem,
   decreaseAmount,
   messageCartVide,
-  removeStorageItem
+  removeStorageItem,
+  displayCartItemCount
 }
