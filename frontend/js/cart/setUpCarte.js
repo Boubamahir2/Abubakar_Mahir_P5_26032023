@@ -77,25 +77,23 @@ function displayCartTotal() {
 }
 
 ////////Fonction addition quantités  Total dans le panier////////////////
-function displayCartItemCount() {
+export function displayCartItemCount() {
   const amount = cartValue.reduce((total, cartItem) => {
-    return (total += cartItem.quantity);
+    return total += parseInt(cartItem.quantity);
   }, 0);
   cartItemCountDOM.textContent = amount;
-  if(amount){
-     setStorageItem('amount', amount);
-  }
-  
+  addLastItemMarker(amount)
   // console.log(amount, 'amount')
 }
 
 //Fonction permettant de modifier le nombre d'éléments dans le panier
 async function modifyQTY(){
    await fetchProduct();
-   const itemsAmounts = document.querySelectorAll(".itemQuantity"); 
-   for (let amount of itemsAmounts) {
+   const quantityInputs = document.querySelectorAll(".itemQuantity"); 
+   for (let input of quantityInputs) {
+    // console.log(input,'input')
      //écoute du changement de qty
-    amount.addEventListener("change", function () {
+    input.addEventListener("change", function () {
       //On récupère l'ID de la donnée modifiée
 			let itemID = this.closest(".cart__item").dataset.id;
       //On récupère la couleur de la donnée modifiée
@@ -107,7 +105,8 @@ async function modifyQTY(){
 			let findByColor = findId.find((element) => element.color === itemColor);
       // si la couleur et l'id sont trouvés, on modifie la quantité en fonction
       if (this.value > 0) {
-				findByColor.quantity = this.value;
+				findByColor.quantity += parseInt(this.value);
+        // console.log(parseInt(this.value), 'this value')
 				 // on met à jour le Ls
       setStorageItem('cartValue', cartValue);
 				      // display amount of cart items

@@ -1,14 +1,14 @@
 import {getStorageItem} from '../../utils/constants.js';
 
-let cartValue = getStorageItem('cartValue');
-let amount = getStorageItem('amount');
 
 function addLastItemMarker(content) {
   const element = document.querySelector('.menu');
+  let cartValue = getStorageItem('cartValue');
   const navItem = document.querySelector('.menu a:last-child');
   navItem.style.position = 'relative';
   
   const style = document.createElement('style');
+  if(cartValue.length > 0) {
   style.innerHTML = `ul a:last-child li::before {
     content: "${content}";
     background: var(--main-color);
@@ -23,15 +23,12 @@ function addLastItemMarker(content) {
     top: 30%;
     right: -15px;
   }`;
+}
 
   element.appendChild(style);
 }
 
- if(cartValue.length > 0) {
-    addLastItemMarker(amount);
-  }
-
-
+ 
 export {
   addLastItemMarker
 }

@@ -28,6 +28,7 @@ function addToCartDOM(product) {
       </div>
     </div>`;
   cartItemsDOM.appendChild(article);
+
 }
 
 export default addToCartDOM;

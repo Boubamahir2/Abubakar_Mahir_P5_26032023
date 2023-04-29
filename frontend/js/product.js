@@ -3,7 +3,7 @@ const urlParams = new URLSearchParams(window.location.search); //déclare une va
 const urlID = urlParams.get('id'); //récupère l'id contenu dans l'url de la page actuelle
 
 // importer une fonction réutilisable à partir d'utils
-import { allProductsUrl,displayCartItemCount, getElement, setStorageItem,getStorageItem } from '../utils/constants.js';
+import { allProductsUrl,displayCount, getElement, setStorageItem,getStorageItem } from '../utils/constants.js';
 
 // variables  pour l'image de la product
 const productImg = document.querySelector(".item__img");
@@ -18,7 +18,7 @@ const colorOptions = getElement("#colors");
 // variables  pour la quatité de la product
 const productQuantity = getElement("#quantity");
 // calacule les quatité 
-displayCartItemCount()
+ displayCount()	
 
 // affiche les produits dynamiquement lors du chargement de la page
 window.addEventListener('DOMContentLoaded', async function () {
@@ -50,11 +50,14 @@ window.addEventListener('DOMContentLoaded', async function () {
         price:price,
 				name,
 				color: colorOptions.value,
-				quantity: productQuantity.value
+				quantity: parseInt(productQuantity.value)
 			};
+
+      console.log(cart, 'my cart');
 
 			//une fonction d'ajout au panier avec argument product
 			function addToCart(product) {
+        console.log(product, 'addToCart product');
         let cartValue = getStorageItem('cartValue');
 				let availableItems = cartValue.find(
 					/// on définit availableItems comme l'article à trouver
@@ -70,7 +73,8 @@ window.addEventListener('DOMContentLoaded', async function () {
 					productQuantity.value <= 100
 				) {
 					product.quantity = parseInt(productQuantity.value); //la quantité saisie est définie 
-					cartValue.push(product);					 //dans le Ls
+					cartValue.push(product);	
+         			 //dans le Ls
 				} else {
 					let newQuantity =
 						parseInt(availableItems.quantity) +
@@ -78,6 +82,7 @@ window.addEventListener('DOMContentLoaded', async function () {
 					availableItems.quantity = newQuantity;
 				}
 				saveCart(cartValue);
+     
 				alert(
 					`Le canapé ${name} ${colorOptions.value} a été ajouté en ${productQuantity.value} exemplaires à votre panier !`
 				);

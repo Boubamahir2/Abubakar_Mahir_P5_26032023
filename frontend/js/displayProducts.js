@@ -1,8 +1,8 @@
 //l'injection du HTML dynamique
 const display = (products, element, filters) => {
+  //boucle pour importer chaque champ du JSON et lui attribuer une variable
   element.innerHTML = products.map((product) => {
     // console.log(product._id)
-    			//boucle pour importer chaque champ du JSON et lui attribuer une variable
     return `<a href="./product.html?id=${product._id}">
         <article>
           <img src="${product.imageUrl}" alt="${product.altTxt}">

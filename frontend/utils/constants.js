@@ -1,5 +1,6 @@
 // products url string for retrieving all products.
 const allProductsUrl = 'http://localhost:3000/api/products'
+import {addLastItemMarker} from '../js/cart/notification.js'
 
 // Le code définit une fonction appelée getElement qui prend un seul argument appelé selection. La fonction utilise la méthode document.querySelector pour sélectionner un élément du DOM en fonction du paramètre de sélection. Si un élément est trouvé, la fonction le renvoie. Cependant, si aucun élément n'est trouvé, la fonction lance un nouvel objet Error avec un message indiquant que le sélecteur qui a été transmis n'a sélectionné aucun élément.
 const getElement = (selection) => {
@@ -25,10 +26,8 @@ const setStorageItem = (name, item) => {
   localStorage.setItem(name, JSON.stringify(item))
 }
 
- const removeStorageItem= (item) => {
-  localStorage.removeItem("item");
-}
 
+// fonction qui renvoie votre carte est vide message si panier vide
 const messageCartVide = () =>{
 	const cartTitle = document.querySelector(
 		"#limitedWidthBlock div.cartAndFormContainer > h1"
@@ -43,6 +42,7 @@ const messageCartVide = () =>{
 
 let cartValue = getStorageItem('cartValue');
 
+// function that deccreases the quantity of a cart item
 function increaseAmount(id) {
   let newAmount;
   cartValue = cartValue.map((cartItem) => {
@@ -55,6 +55,7 @@ function increaseAmount(id) {
   return newAmount;
 }
 
+// function that increases the quantity of a cart item
 function decreaseAmount(id) {
   let newAmount;
   cartValue = cartValue.map((cartItem) => {
@@ -68,15 +69,16 @@ function decreaseAmount(id) {
 }
 
 // calculer les quatité de touts les products
-function displayCartItemCount() {
+////////Fonction addition quantités  Total dans le panier////////////////
+function displayCount() {
   const amount = cartValue.reduce((total, cartItem) => {
-    return (total += cartItem.quantity);
+    return total + parseInt(cartItem.quantity);
   }, 0);
-  if(amount){
-     setStorageItem('amount', amount);
-  }
+  addLastItemMarker(amount)
+  // console.log(amount, 'amount')
 }
 
+// exporter les function 
 export {
   allProductsUrl,
   getElement,
@@ -85,6 +87,5 @@ export {
   setStorageItem,
   decreaseAmount,
   messageCartVide,
-  removeStorageItem,
-  displayCartItemCount
+  displayCount
 }
