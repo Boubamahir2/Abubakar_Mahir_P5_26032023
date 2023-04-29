@@ -4,6 +4,7 @@ const urlID = urlParams.get('id'); //récupère l'id contenu dans l'url de la pa
 
 // importer une fonction réutilisable à partir d'utils
 import { allProductsUrl,displayCount, getElement, setStorageItem,getStorageItem } from '../utils/constants.js';
+import {addLastItemMarker} from '../js/cart/notification.js'
 
 // variables  pour l'image de la product
 const productImg = document.querySelector(".item__img");
@@ -18,7 +19,9 @@ const colorOptions = getElement("#colors");
 // variables  pour la quatité de la product
 const productQuantity = getElement("#quantity");
 // calacule les quatité 
- displayCount()	
+//il faut daboarb recu recupere nos panier de la local storage
+let cartValue = getStorageItem('cartValue');
+ displayCount(cartValue)	
 
 // affiche les produits dynamiquement lors du chargement de la page
 window.addEventListener('DOMContentLoaded', async function () {
@@ -86,6 +89,9 @@ window.addEventListener('DOMContentLoaded', async function () {
 				alert(
 					`Le canapé ${name} ${colorOptions.value} a été ajouté en ${productQuantity.value} exemplaires à votre panier !`
 				);
+ 
+        // on appelle notre pour afficher le notification de panier
+         displayCount(cartValue)
 			}
 			//une fonction de sauvegarde du panier
 			function saveCart(cartValue) {

@@ -70,8 +70,8 @@ function decreaseAmount(id) {
 
 // calculer les quatité de touts les products
 ////////Fonction addition quantités  Total dans le panier////////////////
-function displayCount() {
-  const amount = cartValue.reduce((total, cartItem) => {
+function displayCount(cart) {
+  const amount = cart.reduce((total, cartItem) => {
     return total + parseInt(cartItem.quantity);
   }, 0);
   addLastItemMarker(amount)

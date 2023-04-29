@@ -124,41 +124,6 @@ async function modifyQTY(){
    }
 }
 
-//  function setupCartFunctionality() {
-//   cartItemsDOM.addEventListener('click', function (e) {
-//      const element = e.target;
-//     const parent = e.target.parentElement;
-//     const id = e.target.dataset.id;
-//     const parentID = e.target.closest(".cart__item").getAttribute("data-id");
-//     // remove
-//     if (element.classList.contains('deleteItem')) {
-//       removeItem(id);
-//       console.log(element)
-//       console.log(id)
-//       console.log(parentID)
-//       element.closest('article').remove();
-//       console.log(e.target.closest("article"), 'parent')
-//     }
-//     // increase
-//     if (parent.classList.contains('cart-item-increase-btn')) {
-//       const newAmount = increaseAmount(parentID);
-//       parent.nextElementSibling.textContent = newAmount;
-//     }
-//     // decrease
-//     if (parent.classList.contains('cart-item-decrease-btn')) {
-//       const newAmount = decreaseAmount(parentID);
-//       if (newAmount === 0) {
-//         removeItem(parentID);
-//         parent.parentElement.parentElement.remove();
-//       } else {
-//         parent.previousElementSibling.textContent = newAmount;
-//       }
-//     }
-//     displayCartItemCount();
-//     displayCartTotal();
-//     setStorageItem('cartValue', cartValue);
-//   });
-// }
 
 ////////Supprimer un item avec le bouton supprimer////////
 async function removeItem() {
