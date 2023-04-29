@@ -127,7 +127,7 @@ async function modifyQTY(){
           return
             }else{
 
-              findByColor.quantity += parseInt(this.value);
+              findByColor.quantity = parseInt(this.value);
                   // console.log(parseInt(this.value), 'this value')
                    // on met à jour le Ls
               setStorageItem('cartValue', cartValue);

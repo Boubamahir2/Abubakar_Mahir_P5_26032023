@@ -54,7 +54,6 @@ function increaseAmount(id) {
   });
   return newAmount;
 }
-
 // function that increases the quantity of a cart item
 function decreaseAmount(id) {
   let newAmount;
@@ -89,3 +88,4 @@ export {
   messageCartVide,
   displayCount
 }
+
