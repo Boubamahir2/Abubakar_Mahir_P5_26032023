@@ -17,6 +17,7 @@ const getElement = (selection) => {
   throw new Error(`Please check "${selection}" selector, no such element exist`)
 }
 
+
 // This function takes in an item key and gets the corresponding value from localStorage. If the value exists, it is parsed as a JSON object and returned. If it does not exist, an empty array is returned.
 const getStorageItem = (item) => {
   let storageItem = localStorage.getItem(item)
@@ -49,17 +50,17 @@ const messageCartVide = () =>{
 	document.querySelector(".cart__price").style.display = "none"; // masque le prix total si panier vide
 };
 
-let cart = getStorageItem('cartValue');
+let cartValue = getStorageItem('cartValue');
 function removeItem(id) {
-  cart = cart.filter((cartItem) => cartItem.id !== id);
+  cartValue = cartValue.filter((cartItem) => cartItem.id !== id);
 }
 
 function increaseAmount(id) {
   let newAmount;
-  cart = cart.map((cartItem) => {
+  cartValue = cartValue.map((cartItem) => {
     if (cartItem.id === id) {
-      newAmount = cartItem.amount + 1;
-      cartItem = { ...cartItem, amount: newAmount };
+      newAmount = cartItem.quantity + 1;
+      cartItem = { ...cartItem, quantity: newAmount };
     }
     return cartItem;
   });
@@ -68,10 +69,10 @@ function increaseAmount(id) {
 
 function decreaseAmount(id) {
   let newAmount;
-  cart = cart.map((cartItem) => {
+  cartValue = cartValue.map((cartItem) => {
     if (cartItem.id === id) {
-      newAmount = cartItem.amount - 1;
-      cartItem = { ...cartItem, amount: newAmount };
+      newAmount = cartItem.quantity - 1;
+      cartItem = { ...cartItem, quantity: newAmount };
     }
     return cartItem;
   });
@@ -79,7 +80,7 @@ function decreaseAmount(id) {
 }
 
 function displayCartItemCount() {
-  const amount = cart.reduce((total, cartItem) => {
+  const amount = cartValue.reduce((total, cartItem) => {
     return (total += cartItem.quantity);
   }, 0);
   if(amount){

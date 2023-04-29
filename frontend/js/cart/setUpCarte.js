@@ -1,5 +1,5 @@
 import {
- removeItem,
+
   getElement,
   increaseAmount,
   getStorageItem,
@@ -65,53 +65,6 @@ const displayCart = async ()=>{
 	}
 }
 
-////////Fonction addition quantités  Total dans le panier////////////////
-export function displayCartItemCount() {
-  const amount = cartValue.reduce((total, cartItem) => {
-    return (total += cartItem.quantity);
-  }, 0);
-  cartItemCountDOM.textContent = amount;
-  if(amount){
-     setStorageItem('amount', amount);
-  }
-  
-  console.log(amount, 'amount')
-}
-
-
- function setupCartFunctionality() {
-  cartItemsDOM.addEventListener('click', function (e) {
-    const element = e.target;
-    const parent = e.target.parentElement;
-    const id = e.target.dataset.id;
-    const parentID = e.target.parentElement.dataset.id;
-    // remove
-    if (element.classList.contains('cart-item-remove-btn')) {
-      removeItem(id);
-      // parent.parentElement.remove();
-      element.parentElement.parentElement.remove();
-    }
-    // increase
-    if (parent.classList.contains('cart-item-increase-btn')) {
-      const newAmount = increaseAmount(parentID);
-      parent.nextElementSibling.textContent = newAmount;
-    }
-    // decrease
-    if (parent.classList.contains('cart-item-decrease-btn')) {
-      const newAmount = decreaseAmount(parentID);
-      if (newAmount === 0) {
-        removeItem(parentID);
-        parent.parentElement.parentElement.remove();
-      } else {
-        parent.previousElementSibling.textContent = newAmount;
-      }
-    }
-    displayCartItemCount();
-    displayCartTotal();
-    setStorageItem('cart', cart);
-  });
-}
-
 ////////Fonction addition quantités et Prix pour Total////////////////
 function displayCartTotal() {
   let total = cartValue.reduce((total, cartItem) => {
@@ -120,10 +73,98 @@ function displayCartTotal() {
     return (total += cartItem.price * cartItem.quantity);
   }, 0);
   cartTotalDOM.textContent = total;
-  console.log(total, 'total')
+  // console.log(total, 'total')
   
 }
 
+////////Fonction addition quantités  Total dans le panier////////////////
+function displayCartItemCount() {
+  const amount = cartValue.reduce((total, cartItem) => {
+    return (total += cartItem.quantity);
+  }, 0);
+  cartItemCountDOM.textContent = amount;
+  if(amount){
+     setStorageItem('amount', amount);
+  }
+  
+  // console.log(amount, 'amount')
+}
+
+
+//  function setupCartFunctionality() {
+//   cartItemsDOM.addEventListener('click', function (e) {
+//      const element = e.target;
+//     const parent = e.target.parentElement;
+//     const id = e.target.dataset.id;
+//     const parentID = e.target.closest(".cart__item").getAttribute("data-id");
+//     // remove
+//     if (element.classList.contains('deleteItem')) {
+//       removeItem(id);
+//       console.log(element)
+//       console.log(id)
+//       console.log(parentID)
+//       element.closest('article').remove();
+//       console.log(e.target.closest("article"), 'parent')
+//     }
+//     // increase
+//     if (parent.classList.contains('cart-item-increase-btn')) {
+//       const newAmount = increaseAmount(parentID);
+//       parent.nextElementSibling.textContent = newAmount;
+//     }
+//     // decrease
+//     if (parent.classList.contains('cart-item-decrease-btn')) {
+//       const newAmount = decreaseAmount(parentID);
+//       if (newAmount === 0) {
+//         removeItem(parentID);
+//         parent.parentElement.parentElement.remove();
+//       } else {
+//         parent.previousElementSibling.textContent = newAmount;
+//       }
+//     }
+//     displayCartItemCount();
+//     displayCartTotal();
+//     setStorageItem('cartValue', cartValue);
+//   });
+// }
+
+////////Supprimer un item avec le bouton supprimer////////
+async function removeItem() {
+  await fetchProduct();  
+  const deleteItems = document.querySelectorAll('.deleteItem');
+  deleteItems.forEach((deleteBtn) => {
+    deleteBtn.addEventListener('click', function (e) {
+      //On récupère l'ID de la donnée concernée
+			const dataID = e.target.closest("article").getAttribute("data-id");
+			//On récupère la couleur de la donnée concernée
+			const dataColor = e.target.closest("article").getAttribute("data-color");
+
+      // on cherche l'élément du Ls concerné 
+      const searchItem = cartValue.find(  
+				(item) => item.id == dataID && item.color == dataColor
+			);
+
+       // et on filtre le Ls avec l'élément comme modèle
+      cartValue = cartValue.filter( 
+				(item) => item !== searchItem
+			);
+        // on met à jour le Ls
+      setStorageItem('cartValue', cartValue);
+      // on supprime l'élément du DOM
+
+      const article = e.target.closest(".cart__item");
+      article.remove();
+      if (cartValue !== null && cartValue.length === 0) {
+		localStorage.clear();       //////// si le Ls est vide, on le clear et on affiche le message 
+		return messageCartVide();
+	}
+      // display amount of cart items
+    displayCartItemCount()
+   // display total
+    displayCartTotal();
+    })
+  });
+ 
+}
 
 // parent function for calling all the methods 
 const init = () => {
@@ -134,7 +175,8 @@ displayCart();         ////// affichage du DOM ( avec rappel du fetchApi //////
 displayCartItemCount()
  // display total
   displayCartTotal();
-  setupCartFunctionality();
+  // setupCartFunctionality();
+  removeItem()
 }
 
 // intialise all the functions

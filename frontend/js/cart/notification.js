@@ -31,25 +31,6 @@ function addLastItemMarker(content) {
     addLastItemMarker(amount);
   }
 
-function addMarkSS(content) {
-  const style = document.createElement('style');
-  style.innerHTML = `ul a:last-child li::before {
-    content: "${content}";
-    background: var(--main-color);
-    height: 1.5rem;
-    width: 1.5rem;
-    border-radius: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    position: absolute;
-    top: 30%;
-    right: -15px;
-  }`;
-
-  document.head.appendChild(style);
-}
 
 export {
   addLastItemMarker
