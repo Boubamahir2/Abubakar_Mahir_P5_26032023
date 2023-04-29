@@ -1,16 +1,7 @@
 // products url string for retrieving all products.
 const allProductsUrl = 'http://localhost:3000/api/products'
 
-// This function takes in a price value and returns a formatted currency string in Euro. It uses the Intl.NumberFormat object to format the number with a currency style and a EURO currency code. It also divides the price by 100 and uses toFixed(2) to ensure that the price has two decimal places.
-const formatPrice = (price) => {
-  let formattedPrice = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-  }).format((price / 100).toFixed(2))
-  return formattedPrice
-}
-
-// The code defines a function called getElement that takes in a single argument called selection. The function uses the document.querySelector method to select an element from the DOM based on the selection parameter. If an element is found, the function returns it. However, if no element is found, the function throws a new Error object with a message that indicates the selector that was passed in did not select any elements.
+// Le code définit une fonction appelée getElement qui prend un seul argument appelé selection. La fonction utilise la méthode document.querySelector pour sélectionner un élément du DOM en fonction du paramètre de sélection. Si un élément est trouvé, la fonction le renvoie. Cependant, si aucun élément n'est trouvé, la fonction lance un nouvel objet Error avec un message indiquant que le sélecteur qui a été transmis n'a sélectionné aucun élément.
 const getElement = (selection) => {
   const element = document.querySelector(selection)
   if (element) return element
@@ -18,7 +9,7 @@ const getElement = (selection) => {
 }
 
 
-// This function takes in an item key and gets the corresponding value from localStorage. If the value exists, it is parsed as a JSON object and returned. If it does not exist, an empty array is returned.
+// Cette fonction prend une clé d'élément et obtient la valeur correspondante de localStorage. Si la valeur existe, elle est analysée en tant qu'objet JSON et renvoyée. S'il n'existe pas, un tableau vide est retourné.
 const getStorageItem = (item) => {
   let storageItem = localStorage.getItem(item)
   if (storageItem) {
@@ -29,7 +20,7 @@ const getStorageItem = (item) => {
   return storageItem
 }
 
-// This function takes in a name key and an item value and sets them as a JSON string in localStorage. It uses JSON.stringify() to convert the item value into a JSON string before setting it in localStorage.
+// Cette fonction prend une clé de nom et une valeur d'élément et les définit comme une chaîne JSON dans localStorage. Il utilise JSON.stringify() pour convertir la valeur de l'élément en une chaîne JSON avant de la définir dans localStorage.
 const setStorageItem = (name, item) => {
   localStorage.setItem(name, JSON.stringify(item))
 }
@@ -51,9 +42,6 @@ const messageCartVide = () =>{
 };
 
 let cartValue = getStorageItem('cartValue');
-function removeItem(id) {
-  cartValue = cartValue.filter((cartItem) => cartItem.id !== id);
-}
 
 function increaseAmount(id) {
   let newAmount;
@@ -79,6 +67,7 @@ function decreaseAmount(id) {
   return newAmount;
 }
 
+// calculer les quatité de touts les products
 function displayCartItemCount() {
   const amount = cartValue.reduce((total, cartItem) => {
     return (total += cartItem.quantity);
@@ -90,10 +79,8 @@ function displayCartItemCount() {
 
 export {
   allProductsUrl,
-  removeItem,
   getElement,
   increaseAmount,
-  formatPrice,
   getStorageItem,
   setStorageItem,
   decreaseAmount,

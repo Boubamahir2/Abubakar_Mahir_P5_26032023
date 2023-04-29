@@ -1,28 +1,34 @@
-// here For example, if the current URL is http://example.com/?id=123, then window.location.search would return ?id=123.
+// récupérez l'URL de l'ID,  ici Par exemple, si l'URL actuelle est http://example.com/?id=123, alors window.location.search renverra ?id=123.
 const urlParams = new URLSearchParams(window.location.search); //déclare une variable valant l'url de la page actuelle
 const urlID = urlParams.get('id'); //récupère l'id contenu dans l'url de la page actuelle
 
+// importer une fonction réutilisable à partir d'utils
 import { allProductsUrl,displayCartItemCount, getElement, setStorageItem,getStorageItem } from '../utils/constants.js';
 
-
+// variables  pour l'image de la product
 const productImg = document.querySelector(".item__img");
+// variables  pour le nom de la product
 const productName = document.querySelector("#title");
-const productPrice = document.querySelector("#price");			// emplacements des différentes zones
-const productDescription = getElement("#description");	// d'insertion des variables dynamiques
+// variables  pour le prix de la product
+const productPrice = document.querySelector("#price");			
+// variables  pour la description de la product
+const productDescription = getElement("#description");	
+// variables  pour la coleur de la product
 const colorOptions = getElement("#colors");
+// variables  pour la quatité de la product
 const productQuantity = getElement("#quantity");
-
+// calacule les quatité 
 displayCartItemCount()
 
-// show product when page loads
+// affiche les produits dynamiquement lors du chargement de la page
 window.addEventListener('DOMContentLoaded', async function () {
-
   try {
     const response = await fetch(`${allProductsUrl}/${urlID}`);
-    // The if statement checks whether the status code of the response is within the 200 to 299 range, which indicates a successful response.
+   // L'instruction if vérifie si le code d'état de la réponse est compris entre 200 et 299, ce qui indique une réponse réussie. 
     if (response.status >= 200 && response.status <= 299) {
       productQuantity.value = 1;
       const {_id,imageUrl,name,price,description,colors} = await response.json();
+
       productImg.innerHTML = `<img src="${imageUrl}" alt="Photographie d'un canapé">`;
       productName.textContent = name;
       productPrice.textContent= price;
