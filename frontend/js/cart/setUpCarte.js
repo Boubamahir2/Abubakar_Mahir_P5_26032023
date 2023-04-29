@@ -126,7 +126,6 @@ async function modifyQTY(){
           alert("Veuillez sélectionner une quantité correcte, SVP ");
           return
             }else{
-
               findByColor.quantity = parseInt(this.value);
                   // console.log(parseInt(this.value), 'this value')
                    // on met à jour le Ls
