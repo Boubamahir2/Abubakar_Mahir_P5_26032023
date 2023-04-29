@@ -56,9 +56,8 @@ const displayCart = async ()=>{
   console.log(products);
 
   if (cartValue !== null && cartValue.length !== 0) {
-		products.forEach((product) => { // injection dynamique des produits dans le DOM
+		products.forEach((product,index) => { // injection dynamique des produits dans le DOM
 		addToCartDOM(product)
-
 		});
 	} else {
 		return messageCartVide() ; //si Ls vide, affichage du message Panier Vide
@@ -90,6 +89,41 @@ function displayCartItemCount() {
   // console.log(amount, 'amount')
 }
 
+//Fonction permettant de modifier le nombre d'éléments dans le panier
+async function modifyQTY(){
+   await fetchProduct();
+   const itemsAmounts = document.querySelectorAll(".itemQuantity"); 
+   for (let amount of itemsAmounts) {
+     //écoute du changement de qty
+    amount.addEventListener("change", function () {
+      //On récupère l'ID de la donnée modifiée
+			let itemID = this.closest(".cart__item").dataset.id;
+      //On récupère la couleur de la donnée modifiée
+			let itemColor = this.closest(".cart__item").dataset.color;
+
+      //On filtre le panier avec l'iD dune article modifié
+			let findId = cartValue.filter((element) => element.id === itemID);
+      // /On filtre le panier avec le coleur dune article modifié
+			let findByColor = findId.find((element) => element.color === itemColor);
+      // si la couleur et l'id sont trouvés, on modifie la quantité en fonction
+      if (this.value > 0) {
+				findByColor.quantity = this.value;
+				 // on met à jour le Ls
+      setStorageItem('cartValue', cartValue);
+				      // display amount of cart items
+    displayCartItemCount()
+   // display total
+    displayCartTotal();
+			}else{
+              // display amount of cart items
+    displayCartItemCount()
+   // display total
+    displayCartTotal();
+      }
+      setStorageItem('cartValue', cartValue);
+    })
+   }
+}
 
 //  function setupCartFunctionality() {
 //   cartItemsDOM.addEventListener('click', function (e) {
@@ -167,7 +201,7 @@ async function removeItem() {
 }
 
 // parent function for calling all the methods 
-const init = () => {
+const init = async() => {
    // add all cart items to the dom
 displayCart();         ////// affichage du DOM ( avec rappel du fetchApi //////
 
@@ -177,7 +211,9 @@ displayCartItemCount()
   displayCartTotal();
   // setupCartFunctionality();
   removeItem()
+  modifyQTY()
 }
+
 
 // intialise all the functions
 init();
