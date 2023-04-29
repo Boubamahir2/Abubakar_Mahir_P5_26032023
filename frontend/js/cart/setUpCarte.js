@@ -69,7 +69,16 @@ function displayCartTotal() {
   let total = cartValue.reduce((total, cartItem) => {
     
     console.log(cartItem, 'cartItem')
-    return (total += cartItem.price * cartItem.quantity);
+    if (
+				cartItem.quantity <= 0 ||
+				cartItem.quantity > 100
+			) {
+				alert("Veuillez sélectionner une quantité correcte, SVP entre 1 - 100");
+			}else{
+
+        return (total += cartItem.price * cartItem.quantity);
+      }
+ 
   }, 0);
   cartTotalDOM.textContent = total;
   // console.log(total, 'total')
@@ -79,7 +88,15 @@ function displayCartTotal() {
 ////////Fonction addition quantités  Total dans le panier////////////////
 export function displayCartItemCount() {
   const amount = cartValue.reduce((total, cartItem) => {
-    return total += parseInt(cartItem.quantity);
+    if (
+				cartItem.quantity <= 0 ||
+				cartItem.quantity > 100
+			) {
+				alert("Veuillez sélectionner une quantité correcte, SVP entre 1 - 100");
+			}else{
+
+        return total += parseInt(cartItem.quantity);
+      }
   }, 0);
   cartItemCountDOM.textContent = amount;
   addLastItemMarker(amount)
@@ -105,21 +122,22 @@ async function modifyQTY(){
 			let findByColor = findId.find((element) => element.color === itemColor);
       // si la couleur et l'id sont trouvés, on modifie la quantité en fonction
       if (this.value > 0) {
-				findByColor.quantity += parseInt(this.value);
-        // console.log(parseInt(this.value), 'this value')
-				 // on met à jour le Ls
-      setStorageItem('cartValue', cartValue);
-				      // display amount of cart items
-    displayCartItemCount()
-   // display total
-    displayCartTotal();
-			}else{
-              // display amount of cart items
-    displayCartItemCount()
-   // display total
-    displayCartTotal();
-      }
-      setStorageItem('cartValue', cartValue);
+        if(this.value > 100){
+          alert("Veuillez sélectionner une quantité correcte, SVP ");
+          return
+            }else{
+
+              findByColor.quantity += parseInt(this.value);
+                  // console.log(parseInt(this.value), 'this value')
+                   // on met à jour le Ls
+              setStorageItem('cartValue', cartValue);
+                        // display amount of cart items
+              displayCartItemCount()
+             // display total
+              displayCartTotal();
+            }
+
+			}
     })
    }
 }

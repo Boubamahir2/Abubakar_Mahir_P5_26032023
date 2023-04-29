@@ -115,15 +115,7 @@ window.addEventListener('DOMContentLoaded', async function () {
 
   });
 
-    } else {
-      console.log(response.status, response.statusText);
-      centerDOM.innerHTML = `
-    <div>
-    <h3 class="error">sorry, something went wrong</h3>
-    <a href="index.html" class="btn">back home</a>
-    </div> 
-     `;
-    }
+    } 
 
   } catch (error) {
     console.log(error);
