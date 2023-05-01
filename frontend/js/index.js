@@ -15,7 +15,7 @@ const init = async () => {
   if (products) {
     // add products to the store
     setupStore(products);
-    display(store, getElement('#items') )
+    display(products, getElement('#items') )
   }
 };
 

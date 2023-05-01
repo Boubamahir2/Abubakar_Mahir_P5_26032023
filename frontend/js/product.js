@@ -4,7 +4,8 @@ const urlID = urlParams.get('id'); //récupère l'id contenu dans l'url de la pa
 
 // importer une fonction réutilisable à partir d'utils
 import { allProductsUrl,displayCount, getElement, setStorageItem,getStorageItem } from '../utils/constants.js';
-import {addLastItemMarker} from '../js/cart/notification.js'
+import showPopup from '../utils/popUp.js'
+
 
 // variables  pour l'image de la product
 const productImg = document.querySelector(".item__img");
@@ -56,7 +57,7 @@ window.addEventListener('DOMContentLoaded', async function () {
 				quantity: parseInt(productQuantity.value)
 			};
 
-      console.log(cart, 'my cart');
+      // console.log(cart, 'my cart');
 
 			//une fonction d'ajout au panier avec argument product
 			function addToCart(product) {
@@ -86,8 +87,8 @@ window.addEventListener('DOMContentLoaded', async function () {
 				}
 				saveCart(cartValue);
      
-				alert(
-					`Le canapé ${name} ${colorOptions.value} a été ajouté en ${productQuantity.value} exemplaires à votre panier !`
+				showPopup(
+					`Le canapé ${name} ${colorOptions.value} a été ajouté en ${productQuantity.value} exemplaires à votre panier !`, 'green'
 				);
  
         // on appelle notre pour afficher le notification de panier
@@ -100,14 +101,14 @@ window.addEventListener('DOMContentLoaded', async function () {
 
 			// Si le choix de couleur est vide
 			if (colorOptions.value === "") {
-				alert("Veuillez choisir une couleur, SVP");
+				showPopup("Veuillez choisir une couleur, SVP", "red");
 			}
 			// Si la quantité choisie est nulle OU si elle dépasse 100
 			else if (
 				productQuantity.value <= 0 ||
 				productQuantity.value > 100
 			) {
-				alert("Veuillez sélectionner une quantité correcte, SVP");
+				showPopup("Veuillez sélectionner une quantité correcte, SVP", "red");
 			} else {
 				//Si tout est OK, on envoie le panier au LS
 				addToCart(cart);

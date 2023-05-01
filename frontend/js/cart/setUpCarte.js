@@ -27,7 +27,7 @@ let cartArray = []; // tableau vide qui va contenir les objets créés en suite
 
 if (cartValue !== null) {
   for (let x = 0; x < cartValue.length; x++) {
-    console.log((cartValue[x].id))
+    // console.log((cartValue[x].id))
     await fetch("http://localhost:3000/api/products/" + cartValue[x].id)
     .then((res) => res.json())
 		.then((item) => {
@@ -45,7 +45,7 @@ if (cartValue !== null) {
 		}).catch((err) => console.log(err));
   }
 }
-console.log('CartArray' , cartArray)
+// console.log('CartArray' , cartArray)
 return cartArray;
 }
 
@@ -68,7 +68,7 @@ const displayCart = async ()=>{
 function displayCartTotal() {
   let total = cartValue.reduce((total, cartItem) => {
     
-    console.log(cartItem, 'cartItem')
+    // console.log(cartItem, 'cartItem')
     if (
 				cartItem.quantity <= 0 ||
 				cartItem.quantity > 100
