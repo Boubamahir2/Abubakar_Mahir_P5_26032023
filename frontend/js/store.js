@@ -8,10 +8,9 @@ let store = getStorageItem('store');
 const setupStore = (products) => {
   store = products.map((product) => {
     // console.log(product, 'product');
-    return product
+    return product;
   });
   setStorageItem('store', store);
 };
 
-
-export { store, setupStore,};
+export { store, setupStore };

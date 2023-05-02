@@ -1,43 +1,43 @@
 // products url string for retrieving all products.
-const allProductsUrl = 'http://localhost:3000/api/products'
-import {addLastItemMarker} from '../js/cart/notification.js'
+const allProductsUrl = 'http://localhost:3000/api/products';
+import { addLastItemMarker } from '../js/cart/notification.js';
 
 // Le code définit une fonction appelée getElement qui prend un seul argument appelé selection. La fonction utilise la méthode document.querySelector pour sélectionner un élément du DOM en fonction du paramètre de sélection. Si un élément est trouvé, la fonction le renvoie. Cependant, si aucun élément n'est trouvé, la fonction lance un nouvel objet Error avec un message indiquant que le sélecteur qui a été transmis n'a sélectionné aucun élément.
 const getElement = (selection) => {
-  const element = document.querySelector(selection)
-  if (element) return element
-  throw new Error(`Please check "${selection}" selector, no such element exist`)
-}
-
+  const element = document.querySelector(selection);
+  if (element) return element;
+  throw new Error(
+    `Please check "${selection}" selector, no such element exist`
+  );
+};
 
 // Cette fonction prend une clé d'élément et obtient la valeur correspondante de localStorage. Si la valeur existe, elle est analysée en tant qu'objet JSON et renvoyée. S'il n'existe pas, un tableau vide est retourné.
 const getStorageItem = (item) => {
-  let storageItem = localStorage.getItem(item)
+  let storageItem = localStorage.getItem(item);
   if (storageItem) {
-    storageItem = JSON.parse(localStorage.getItem(item))
+    storageItem = JSON.parse(localStorage.getItem(item));
   } else {
-    storageItem = []
+    storageItem = [];
   }
-  return storageItem
-}
+  return storageItem;
+};
 
 // Cette fonction prend une clé de nom et une valeur d'élément et les définit comme une chaîne JSON dans localStorage. Il utilise JSON.stringify() pour convertir la valeur de l'élément en une chaîne JSON avant de la définir dans localStorage.
 const setStorageItem = (name, item) => {
-  localStorage.setItem(name, JSON.stringify(item))
-}
-
+  localStorage.setItem(name, JSON.stringify(item));
+};
 
 // fonction qui renvoie votre carte est vide message si panier vide
-const messageCartVide = () =>{
-	const cartTitle = document.querySelector(
-		"#limitedWidthBlock div.cartAndFormContainer > h1"
-	); //emplacement du message
-	const emptyCartMessage = "Oups ! Votre panier est vide !";
-	cartTitle.textContent = emptyCartMessage;
-	cartTitle.style.fontSize = "40px";
+const messageCartVide = () => {
+  const cartTitle = document.querySelector(
+    '#limitedWidthBlock div.cartAndFormContainer > h1'
+  ); //emplacement du message
+  const emptyCartMessage = 'Oups ! Votre panier est vide !';
+  cartTitle.textContent = emptyCartMessage;
+  cartTitle.style.fontSize = '40px';
 
-	document.querySelector(".cart__order").style.display = "none"; //masque le formulaire si panier vide
-	document.querySelector(".cart__price").style.display = "none"; // masque le prix total si panier vide
+  document.querySelector('.cart__order').style.display = 'none'; //masque le formulaire si panier vide
+  document.querySelector('.cart__price').style.display = 'none'; // masque le prix total si panier vide
 };
 
 let cartValue = getStorageItem('cartValue');
@@ -73,11 +73,11 @@ function displayCount(cart) {
   const amount = cart.reduce((total, cartItem) => {
     return total + parseInt(cartItem.quantity);
   }, 0);
-  addLastItemMarker(amount)
+  addLastItemMarker(amount);
   // console.log(amount, 'amount')
 }
 
-// exporter les function 
+// exporter les function
 export {
   allProductsUrl,
   getElement,
@@ -86,6 +86,5 @@ export {
   setStorageItem,
   decreaseAmount,
   messageCartVide,
-  displayCount
-}
-
+  displayCount,
+};

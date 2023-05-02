@@ -1,6 +1,6 @@
 // //////////// fonction d'affichage du DOM ////////////////////
 // import { getElement,messagePanierVide,getStorageItem } from '../../utils/constants.js';
-const cartItemsDOM = document.querySelector("#cart__items");
+const cartItemsDOM = document.querySelector('#cart__items');
 
 function addToCartDOM(product) {
   const article = document.createElement('article');
@@ -28,7 +28,6 @@ function addToCartDOM(product) {
       </div>
     </div>`;
   cartItemsDOM.appendChild(article);
-
 }
 
 export default addToCartDOM;
