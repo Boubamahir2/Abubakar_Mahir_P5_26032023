@@ -5,7 +5,7 @@ import {
   setStorageItem,
   decreaseAmount,
   messageCartVide,
-} from '../../utils/constants.js';
+} from '../../js/utils/constants.js';
 
 // meassage cart vide
 import addToCartDOM from './addToCart.js';
@@ -16,7 +16,7 @@ const cartItemCountDOM = getElement('#totalQuantity');
 const cartTotalDOM = getElement('#totalPrice');
 // console.log(cartItemCountDOM,cartItemsDOM,cartTotalDOM);
 
-import showPopup from '../../utils/popUp.js';
+import showPopup from '../../js/utils/popUp.js';
 
 //il faut daboarb recu recupere nos panier de la local storage
 let cartValue = getStorageItem('cartValue');

@@ -1,12 +1,12 @@
 // global imports
-import { fetchProducts } from '../utils/fetchProducts.js';
+import { fetchProducts } from '../js/utils/fetchProducts.js';
 import { setupStore, store } from './store.js';
 import display from './displayProducts.js';
 import {
   getElement,
   displayCount,
   getStorageItem,
-} from '../utils/constants.js';
+} from '../js/utils/constants.js';
 
 //il faut daboarb recu recupere nos panier de la local storage
 let cartValue = getStorageItem('cartValue');

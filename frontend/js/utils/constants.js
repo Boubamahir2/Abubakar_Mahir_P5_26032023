@@ -1,6 +1,6 @@
 // products url string for retrieving all products.
 const allProductsUrl = 'http://localhost:3000/api/products';
-import { addLastItemMarker } from '../js/cart/notification.js';
+import { addLastItemMarker } from '../cart/notification.js';
 
 // Le code définit une fonction appelée getElement qui prend un seul argument appelé selection. La fonction utilise la méthode document.querySelector pour sélectionner un élément du DOM en fonction du paramètre de sélection. Si un élément est trouvé, la fonction le renvoie. Cependant, si aucun élément n'est trouvé, la fonction lance un nouvel objet Error avec un message indiquant que le sélecteur qui a été transmis n'a sélectionné aucun élément.
 const getElement = (selection) => {

@@ -1,5 +1,5 @@
 // importer une fonction réutilisable à partir d'utils
-import { getStorageItem, setStorageItem } from '../utils/constants.js';
+import { getStorageItem, setStorageItem } from '../js/utils/constants.js';
 
 // importer touts les donner de la storage locale
 let store = getStorageItem('store');

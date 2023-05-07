@@ -9,8 +9,8 @@ import {
   getElement,
   setStorageItem,
   getStorageItem,
-} from '../utils/constants.js';
-import showPopup from '../utils/popUp.js';
+} from '../js/utils/constants.js';
+import showPopup from '../js/utils/popUp.js';
 
 // variables  pour l'image de la product
 const productImg = document.querySelector('.item__img');

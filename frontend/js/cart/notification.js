@@ -1,5 +1,5 @@
 // Ce code génère et ajoute un élément de style à un élément donné, en fonction de la valeur de cartValue et du window.innerWidth actuel. L'élément de style contient des styles CSS pour une icône de panier affichée dans le menu de navigation
-import { getStorageItem } from '../../utils/constants.js';
+import { getStorageItem } from '../../js/utils/constants.js';
 function addLastItemMarker(content) {
   const element = document.querySelector('.menu');
   let cartValue = getStorageItem('cartValue');

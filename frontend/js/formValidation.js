@@ -1,6 +1,6 @@
 // dom selsectors
-import { setError, setSuccess } from '../utils/messages.js';
-import { getStorageItem } from '../utils/constants.js';
+import { setError, setSuccess } from '../js/utils/messages.js';
+import { getStorageItem } from '../js/utils/constants.js';
 let cartValue = getStorageItem('cartValue');
 // error messages elements
 const firstNameErrorMsg = document.querySelector('#firstNameErrorMsg');
