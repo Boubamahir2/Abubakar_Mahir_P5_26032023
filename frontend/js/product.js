@@ -3,14 +3,9 @@ const urlParams = new URLSearchParams(window.location.search); //déclare une va
 const urlID = urlParams.get('id'); //récupère l'id contenu dans l'url de la page actuelle
 
 // importer une fonction réutilisable à partir d'utils
-import {
-  allProductsUrl,
-  displayCount,
-  getElement,
-  setStorageItem,
-  getStorageItem,
-} from '../js/utils/constants.js';
-import showPopup from '../js/utils/popUp.js';
+import { allProductsUrl, displayCount, showPopup } from './scripts.js';
+
+import { setStorageItem, getStorageItem } from './cart.js';
 
 // variables  pour l'image de la product
 const productImg = document.querySelector('.item__img');
@@ -19,11 +14,11 @@ const productName = document.querySelector('#title');
 // variables  pour le prix de la product
 const productPrice = document.querySelector('#price');
 // variables  pour la description de la product
-const productDescription = getElement('#description');
+const productDescription = document.querySelector('#description');
 // variables  pour la coleur de la product
-const colorOptions = getElement('#colors');
+const colorOptions = document.querySelector('#colors');
 // variables  pour la quatité de la product
-const productQuantity = getElement('#quantity');
+const productQuantity = document.querySelector('#quantity');
 // calacule les quatité
 //il faut daboarb recu recupere nos panier de la local storage
 let cartValue = getStorageItem('cartValue');
@@ -80,8 +75,15 @@ window.addEventListener('DOMContentLoaded', async function () {
             productQuantity.value > 0 &&
             productQuantity.value <= 100
           ) {
-            product.quantity = parseInt(productQuantity.value); //la quantité saisie est définie
-            cartValue.push(product);
+            const cartItem = {
+              id: product.id,
+              name: product.name,
+              color: product.color,
+              quantity: parseInt(productQuantity.value),
+              alt: product.alt,
+              img: product.img,
+            };
+            cartValue.push(cartItem);
             //dans le Ls
           } else {
             let newQuantity =
@@ -99,6 +101,7 @@ window.addEventListener('DOMContentLoaded', async function () {
           // on appelle notre pour afficher le notification de panier
           displayCount(cartValue);
         }
+
         //une fonction de sauvegarde du panier
         function saveCart(cartValue) {
           setStorageItem('cartValue', cartValue);
