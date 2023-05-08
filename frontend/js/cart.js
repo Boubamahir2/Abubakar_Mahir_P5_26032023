@@ -1,6 +1,4 @@
-import {
-  showPopup,
-} from './scripts.js';
+import { showPopup } from './scripts.js';
 
 const cartItemsDOM = document.querySelector('#cart__items');
 const cartItemCountDOM = document.querySelector('#totalQuantity');
@@ -66,7 +64,6 @@ async function displayCartTotal() {
   if (cartTotalDOM) cartTotalDOM.textContent = total;
   return total;
 }
-
 
 // une fonction poour afichage des continus de panier /////////
 const displayCart = async () => {
@@ -187,10 +184,8 @@ const initialize = async () => {
 // intialise all the functions
 initialize();
 
-
-
 // Cette fonction prend une clé d'élément et obtient la valeur correspondante de localStorage. Si la valeur existe, elle est analysée en tant qu'objet JSON et renvoyée. S'il n'existe pas, un tableau vide est retourné.
-export function getStorageItem (item) {
+export function getStorageItem(item) {
   let storageItem = localStorage.getItem(item);
   if (storageItem) {
     storageItem = JSON.parse(localStorage.getItem(item));
@@ -198,15 +193,15 @@ export function getStorageItem (item) {
     storageItem = [];
   }
   return storageItem;
-};
+}
 
 // Cette fonction prend une clé de nom et une valeur d'élément et les définit comme une chaîne JSON dans localStorage. Il utilise JSON.stringify() pour convertir la valeur de l'élément en une chaîne JSON avant de la définir dans localStorage.
-export function setStorageItem (name, item) {
+export function setStorageItem(name, item) {
   localStorage.setItem(name, JSON.stringify(item));
-};
+}
 
 // fonction qui renvoie votre carte est vide message si panier vide
-export function messageCartVide () {
+export function messageCartVide() {
   const cartTitle = document.querySelector(
     '#limitedWidthBlock div.cartAndFormContainer > h1'
   ); //emplacement du message
@@ -216,153 +211,94 @@ export function messageCartVide () {
 
   document.querySelector('.cart__order').style.display = 'none'; //masque le formulaire si panier vide
   document.querySelector('.cart__price').style.display = 'none'; // masque le prix total si panier vide
-};
-
+}
 
 // //////////// fonction d'affichage du DOM ////////////////////
-function addToCartDOM(product) {
-  const article = document.createElement('article');
-  if (cartItemsDOM) {
-    article.classList.add('cart__item');
-    article.setAttribute('data-id', product.id);
-    article.setAttribute('data-color', product.color);
-    article.innerHTML = `
-    <div class="cart__item__img">
-      <img src="${product.img}" alt="Photographie d'un canapé">
-    </div>
-    <div class="cart__item__content">
-      <div class="cart__item__content__description">
-        <h2>${product.name}</h2>
-        <p>${product.color}</p>
-        <p>${product.price} €</p>
-      </div>
-      <div class="cart__item__content__settings">
-        <div class="cart__item__content__settings__quantity">
-          <p>Qté : </p>
-          <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${product.quantity}">
-        </div>
-        <div class="cart__item__content__settings__delete">
-          <p data-id="${product.id}" class="deleteItem">Supprimer</p>
-        </div>
-      </div>
-    </div>`;
-    cartItemsDOM.appendChild(article);
-  }
-}
 // function addToCartDOM(product) {
+//   const article = document.createElement('article');
 //   if (cartItemsDOM) {
-//     const article = document.createElement('article');
 //     article.classList.add('cart__item');
 //     article.setAttribute('data-id', product.id);
 //     article.setAttribute('data-color', product.color);
-
-//     const imgDiv = document.createElement('div');
-//     imgDiv.classList.add('cart__item__img');
-//     const img = document.createElement('img');
-//     img.setAttribute('src', product.img);
-//     img.setAttribute('alt', "Photographie d'un canapé");
-//     imgDiv.appendChild(img);
-//     article.appendChild(imgDiv);
-
-//     const contentDiv = document.createElement('div');
-//     contentDiv.classList.add('cart__item__content');
-
-//     const descriptionDiv = document.createElement('div');
-//     descriptionDiv.classList.add('cart__item__content__description');
-//     const nameHeading = document.createElement('h2');
-//     nameHeading.textContent = product.name;
-//     const colorPara = document.createElement('p');
-//     colorPara.textContent = product.color;
-//     const pricePara = document.createElement('p');
-//     pricePara.textContent = `${product.price} €`;
-//     descriptionDiv.appendChild(nameHeading);
-//     descriptionDiv.appendChild(colorPara);
-//     descriptionDiv.appendChild(pricePara);
-//     contentDiv.appendChild(descriptionDiv);
-
-//     const settingsDiv = document.createElement('div');
-//     settingsDiv.classList.add('cart__item__content__settings');
-
-//     const quantityDiv = document.createElement('div');
-//     quantityDiv.classList.add('cart__item__content__settings__quantity');
-//     const quantityLabel = document.createElement('p');
-//     quantityLabel.textContent = 'Qté : ';
-//     const quantityInput = document.createElement('input');
-//     quantityInput.setAttribute('type', 'number');
-//     quantityInput.setAttribute('name', 'itemQuantity');
-//     quantityInput.setAttribute('min', '1');
-//     quantityInput.setAttribute('max', '100');
-//     quantityInput.setAttribute('value', product.quantity);
-//     quantityDiv.appendChild(quantityLabel);
-//     quantityDiv.appendChild(quantityInput);
-//     settingsDiv.appendChild(quantityDiv);
-
-//     const deleteDiv = document.createElement('div');
-//     deleteDiv.classList.add('cart__item__content__settings__delete');
-//     const deletePara = document.createElement('p');
-//     deletePara.setAttribute('data-id', product.id);
-//     deletePara.classList.add('deleteItem');
-//     deletePara.textContent = 'Supprimer';
-//     deleteDiv.appendChild(deletePara);
-//     settingsDiv.appendChild(deleteDiv);
-
-//     contentDiv.appendChild(settingsDiv);
-//     article.appendChild(contentDiv);
-
+//     article.innerHTML = `
+//     <div class="cart__item__img">
+//       <img src="${product.img}" alt="Photographie d'un canapé">
+//     </div>
+//     <div class="cart__item__content">
+//       <div class="cart__item__content__description">
+//         <h2>${product.name}</h2>
+//         <p>${product.color}</p>
+//         <p>${product.price} €</p>
+//       </div>
+//       <div class="cart__item__content__settings">
+//         <div class="cart__item__content__settings__quantity">
+//           <p>Qté : </p>
+//           <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${product.quantity}">
+//         </div>
+//         <div class="cart__item__content__settings__delete">
+//           <p data-id="${product.id}" class="deleteItem">Supprimer</p>
+//         </div>
+//       </div>
+//     </div>`;
 //     cartItemsDOM.appendChild(article);
 //   }
 // }
+function addToCartDOM(product) {
+  if (cartItemsDOM) {
+    const article = document.createElement('article');
+    article.classList.add('cart__item');
+    article.setAttribute('data-id', product.id);
+    article.setAttribute('data-color', product.color);
 
+    const imgDiv = document.createElement('div');
+    imgDiv.classList.add('cart__item__img');
+    const img = document.createElement('img');
+    img.setAttribute('src', product.img);
+    img.setAttribute('alt', "Photographie d'un canapé");
+    imgDiv.appendChild(img);
+    article.appendChild(imgDiv);
 
+    const contentDiv = document.createElement('div');
+    contentDiv.classList.add('cart__item__content');
 
+    const descriptionDiv = document.createElement('div');
+    descriptionDiv.classList.add('cart__item__content__description');
+    const nameHeading = document.createElement('h2');
+    nameHeading.textContent = product.name;
+    const colorPara = document.createElement('p');
+    colorPara.textContent = product.color;
+    const pricePara = document.createElement('p');
+    pricePara.textContent = `${product.price} €`;
+    descriptionDiv.appendChild(nameHeading);
+    descriptionDiv.appendChild(colorPara);
+    descriptionDiv.appendChild(pricePara);
+    contentDiv.appendChild(descriptionDiv);
 
+    const settingsDiv = document.createElement('div');
+    settingsDiv.classList.add('cart__item__content__settings');
 
+    const quantityDiv = document.createElement('div');
+    quantityDiv.classList.add('cart__item__content__settings__quantity');
+    quantityDiv.innerHTML = `
+    <p>Qté : </p>
+    <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${product.quantity}">`;
+    settingsDiv.appendChild(quantityDiv);
 
+    const deleteDiv = document.createElement('div');
+    deleteDiv.classList.add('cart__item__content__settings__delete');
+    const deletePara = document.createElement('p');
+    deletePara.setAttribute('data-id', product.id);
+    deletePara.classList.add('deleteItem');
+    deletePara.textContent = 'Supprimer';
+    deleteDiv.appendChild(deletePara);
+    settingsDiv.appendChild(deleteDiv);
 
+    contentDiv.appendChild(settingsDiv);
+    article.appendChild(contentDiv);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    cartItemsDOM.appendChild(article);
+  }
+}
 
 // Il s'agit d'une fonction JavaScript qui affiche au dernier élément d'un menu de navigation pour indiquer qu'il a été ajouté au panier de l'utilisateur.
 export function addLastItemMarker(content) {
